@@ -1,0 +1,60 @@
+ <?php
+   require_once '../Excel/reader.php'; //引入PHP-ExcelReader
+   require_once '../include.php';
+   connect();
+   mysql_query("SET NAMES 'gb2312'");
+   
+   $filename = $_FILES['myFile']['name'];  //文件在客户端的名字
+   $type = $_FILES['myFile']['type'];  //文件类型
+   $size = $_FILES['myFile']['size'];  //文件大小
+   $error = $_FILES['myFile']['error'];
+   
+   if(empty($filename))
+   {
+       echo "<script>alert('请选择要导入的excel表格');window.location.href='addStudent.php';</script>";
+   }
+   $tmpName = $_FILES['myFile']['tmp_name'];  //date('Ymdhis').".xls";
+   
+   if($error==UPLOAD_ERR_OK)
+   {
+       if(move_uploaded_file($tmpName,"D:\WWW\graduate\uploads\".$filename))
+       {
+         $xls = new Spreadsheet_Excel_Reader();
+         $xls = setOutputEncoding('utf-8');   //设置编码
+         $xls = read("'D:\WWW\graduate\uploads\'.$filename");      //解析文件
+         
+         for($i=2;$i<$xls->sheets[0]['numRows'];$i++)
+         {
+               $name = $xls->sheets[0]['cells'][$i][0];
+               $belong_to = $xls->sheets[0]['cells'][$i][1];
+               $number = $xls->sheets[0]['cells'][$i][2];
+               $sex = $xls->sheets[0]['cells'][$i][3];
+               $major = $xls->sheets[0]['cells'][$i][4];
+               $class = $xls->sheets[0]['cells'][$i][5];
+               $email = $xls->sheets[0]['cells'][$i][6];
+               $phone = $xls->sheets[0]['cells'][$i][7];
+            
+               $student = array('name'=>$name,
+                             'password'=>$number,
+                             'belong_to'=>'student',
+                             'number'=>$number,
+                             'sex'=>$sex,
+                             'major'=>$major,
+                             'class'=>$class,
+                             'email'=>$email,
+                             'phone'=>$phone);
+               $students = substr($student,0,-1);//去掉最后一个逗号
+               $query = insert($user,$students);
+         }
+         
+         if($query)
+         {
+             echo '学生信息导入成功';
+         }
+         else
+         {
+             echo '学生信息导入失败';
+         }
+       }
+   }
+?>

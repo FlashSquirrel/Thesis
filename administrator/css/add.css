@@ -1,0 +1,14 @@
+.addStudent table tr th{height:30px;text-align:center;}
+.addStudent input{width:113px;overflow:hidden;}
+.addTeacher table tr td{height:30px;text-align:center;}
+.addTeacher input{width:110px;overflow:hidden;}
+.add{padding:3% 0 0 10%;margin:0px;}
+.add ul li{padding:10px 0 0 0}
+.img input{margin:0 0 10px 80px;padding:0;}
+
+//ĞŞ¸Ä¸öÈËÃÜÂë
+.change_password{padding:10px 0 0 10%;}
+.change_password ul li{padding:10px 0 10px 0}
+
+//notice.php
+.show table tr td{text-align:center;}

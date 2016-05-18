@@ -1,0 +1,15 @@
+configs：配置文件
+core：核心操作（未用）
+home：登录页面
+lib：核心函数{
+    mysql.func.php:数据库相关操作；
+    其他暂时没用；
+}
+plugins：插件（未用）
+students：学生相关页面{
+    header.php与footer.php:共同组成页面整体框架；
+    index.php:最新通知（登录后显示的第一个页面）；
+    index.do.php:index相关的操作（数据库等）；
+    其他同上；
+}
+include.php:路径包含
